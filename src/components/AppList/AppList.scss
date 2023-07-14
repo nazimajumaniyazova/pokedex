@@ -1,0 +1,8 @@
+@use '../../styles/placeholders.scss';
+
+.card-list {
+  padding: 50px 0;
+}
+.card-list__wrapper {
+  @extend %wrapper;
+}
