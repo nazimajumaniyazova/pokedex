@@ -1,0 +1,15 @@
+@use '../../styles/mixins' as *;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  &__text {
+    color: #fff;
+    margin-top: 10px;
+    @include font($size: 25px, $weight: 700);
+  }
+  &__img {
+    width: 60px;
+  }
+}

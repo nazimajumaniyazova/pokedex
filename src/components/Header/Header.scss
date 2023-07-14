@@ -1,0 +1,12 @@
+@use '../../styles/placeholders.scss';
+
+.header {
+  height: 64px;
+  background: #001529;
+  &__wrapper {
+    @extend %wrapper;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
