@@ -1,28 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './AppList.scss';
-
+import useFetch from '../../hooks/useFetch';
 import { Card, List } from 'antd';
-const data = [
-  {
-    title: 'Title 1',
-  },
-  {
-    title: 'Title 2',
-  },
-  {
-    title: 'Title 3',
-  },
-  {
-    title: 'Title 4',
-  },
-  {
-    title: 'Title 5',
-  },
-  {
-    title: 'Title 6',
-  },
-];
+
 function AppList() {
+  const { data, isLoading, isError, setUrl } = useFetch(
+    'https://pokeapi.co/api/v2/pokemon-species'
+  );
+
   return (
     <section className='card-list'>
       <div className='card-list__wrapper'>
@@ -39,7 +24,7 @@ function AppList() {
           dataSource={data}
           renderItem={(item) => (
             <List.Item>
-              <Card title={item.title}>Card content</Card>
+              <Card title={item.name}>Card content</Card>
             </List.Item>
           )}
         />
