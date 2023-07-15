@@ -6,7 +6,7 @@ function AppHeader() {
     <header className='header'>
       <div className='header__wrapper'>
         <Logo />
-        <SearchBar className='search' />
+        <SearchBar />
       </div>
     </header>
   );

@@ -28,30 +28,32 @@ function AppList() {
   }, [data]);
 
   return (
-    <section className='card-list'>
-      <div className='card-list__wrapper'>
-        {isLoading && <p>Loading...</p>}
-        {isLoading || (
-          <List
-            grid={{
-              gutter: 16,
-              xs: 1,
-              sm: 2,
-              md: 4,
-              lg: 4,
-              xl: 4,
-              xxl: 3,
-            }}
-            dataSource={itemsArr}
-            renderItem={(item) => (
-              <List.Item>
-                <Card item={item} />
-              </List.Item>
-            )}
-          />
-        )}
-      </div>
-    </section>
+    <>
+      <section className='card-list'>
+        <div className='card-list__wrapper'>
+          {isLoading && <p>Loading...</p>}
+          {isLoading || (
+            <List
+              grid={{
+                gutter: 16,
+                xs: 1,
+                sm: 2,
+                md: 4,
+                lg: 4,
+                xl: 4,
+                xxl: 3,
+              }}
+              dataSource={itemsArr}
+              renderItem={(item) => (
+                <List.Item>
+                  <Card item={item} />
+                </List.Item>
+              )}
+            />
+          )}
+        </div>
+      </section>
+    </>
   );
 }
 

@@ -21,7 +21,7 @@ function SearchBar() {
     setIsDisplayCancelBtn(false);
   };
 
-  const onClickSearchBtn = () => {
+  const onClickSearchBtn = (e) => {
     if (searchValue === '') {
       ref.current.focus();
     }
