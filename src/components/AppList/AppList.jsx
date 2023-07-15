@@ -1,34 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './AppList.scss';
 import useFetch from '../../hooks/useFetch';
-import { Card, List, Tag } from 'antd';
-
-const colors = [
-  'yellow',
-  'magenta',
-  'red',
-  'volcano',
-  'orange',
-  'lime',
-  'green',
-  'cyan',
-  'blue',
-  'gold',
-  'geekblue',
-  'purple',
-  'pink',
-]; //13
-
-const defineTagColor = (tagUrl) => {
-  const arr = tagUrl.split('/');
-  const tagId = arr[arr.length - 2];
-
-  if (tagId < colors.length) {
-    return colors[tagId];
-  } else {
-    return colors[Math.trunc((14 / colors.length) * 10)];
-  }
-};
+import { List, Tag, Modal } from 'antd';
+import { Card } from '../Card/Card';
 
 function AppList() {
   const [itemsArr, setItemsArr] = useState([]);
@@ -41,7 +15,7 @@ function AppList() {
   useEffect(() => {
     const func = async () => {
       if (data) {
-        for (let item of data) {
+        for (let item of data.results) {
           const r = await fetch(item.url);
           const m = await r.json();
           setItemsArr((current) => [...current, m]);
@@ -54,6 +28,17 @@ function AppList() {
     }
     mounted.current = true;
   }, [data]);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <section className='card-list'>
       <div className='card-list__wrapper'>
@@ -72,45 +57,7 @@ function AppList() {
             dataSource={itemsArr}
             renderItem={(item) => (
               <List.Item>
-                <Card
-                  title={item.name}
-                  hoverable
-                  bodyStyle={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '10px',
-                  }}
-                  cover={
-                    <img
-                      alt='example'
-                      src={item.sprites.front_default}
-                      style={{ width: '150px', margin: '0 auto' }}
-                    />
-                  }
-                >
-                  <div className='card-property'>
-                    <span className='card-property__name'>Abilities:</span>
-                    {item.abilities.map((ability) => (
-                      <span
-                        className='card-property__item'
-                        key={`${item.id}${ability.ability.name}`}
-                      >
-                        {ability.ability.name}
-                      </span>
-                    ))}
-                  </div>
-                  <div className='card-property'>
-                    <span className='card-property__name'>Types:</span>
-                    {item.types.map((type) => (
-                      <Tag
-                        color={defineTagColor(type.type.url)}
-                        key={`${item.id}${type.type.name}`}
-                      >
-                        {type.type.name}
-                      </Tag>
-                    ))}
-                  </div>
-                </Card>
+                <Card item={item} />
               </List.Item>
             )}
           />

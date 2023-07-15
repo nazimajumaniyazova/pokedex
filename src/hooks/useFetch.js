@@ -4,9 +4,10 @@ const BASE_URL = 'https://pokeapi.co/api/v2/pokemon-species';
 
 function useFetch(initialUrl) {
   const [url, setUrl] = useState(initialUrl);
+
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState();
-  const [isError, setIsError] = useState();
+  const [isError, setIsError] = useState(null);
   const mounted = useRef(false);
 
   useEffect(() => {
@@ -14,14 +15,19 @@ function useFetch(initialUrl) {
     setIsLoading(true);
     setData(undefined);
     const fetchData = async () => {
-      const result = await fetch(url);
-      const data = await result.json();
-      if (result.ok) {
-        setData(data.results);
-      } else {
-        setIsError(data);
+      try {
+        const result = await fetch(url);
+        const data = await result.json();
+
+        if (result.ok) {
+          setData(data);
+        } else {
+          setIsError(data);
+        }
+        setIsLoading(false);
+      } catch (err) {
+        setIsError(err);
       }
-      setIsLoading(false);
     };
 
     if (mounted.current) {
