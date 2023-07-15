@@ -1,8 +1,18 @@
 @use '../../styles/placeholders.scss';
-
+@use '../../styles/mixins' as *;
 .card-list {
   padding: 50px 0;
 }
 .card-list__wrapper {
   @extend %wrapper;
+}
+.card-property {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 2px;
+  column-gap: 10px;
+  &__name {
+    font-weight: 700;
+  }
 }

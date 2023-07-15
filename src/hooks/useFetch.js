@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const BASE_URL = 'https://pokeapi.co/api/v2/pokemon-species';
 
@@ -7,6 +7,7 @@ function useFetch(initialUrl) {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState();
   const [isError, setIsError] = useState();
+  const mounted = useRef(false);
 
   useEffect(() => {
     setIsError(undefined);
@@ -22,7 +23,11 @@ function useFetch(initialUrl) {
       }
       setIsLoading(false);
     };
-    fetchData();
+
+    if (mounted.current) {
+      fetchData();
+    }
+    mounted.current = true;
   }, [url]);
 
   return { data, isLoading, isError, setUrl };
