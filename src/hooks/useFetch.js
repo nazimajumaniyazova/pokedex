@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 
-const BASE_URL = 'https://pokeapi.co/api/v2/pokemon-species';
-
 function useFetch(initialUrl) {
   const [url, setUrl] = useState(initialUrl);
 

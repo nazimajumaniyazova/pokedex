@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './AppList.scss';
 import useFetch from '../../hooks/useFetch';
-import { List, Tag, Modal } from 'antd';
+import { List } from 'antd';
 import { Card } from '../Card/Card';
 
 function AppList() {
   const [itemsArr, setItemsArr] = useState([]);
-  const { data, isLoading, isError, setUrl } = useFetch(
-    'https://pokeapi.co/api/v2/pokemon'
-  );
+  const { data, isLoading } = useFetch('https://pokeapi.co/api/v2/pokemon');
 
   const mounted = useRef(false);
 
@@ -29,16 +27,6 @@ function AppList() {
     mounted.current = true;
   }, [data]);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   return (
     <section className='card-list'>
       <div className='card-list__wrapper'>

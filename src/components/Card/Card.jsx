@@ -1,6 +1,6 @@
 import './Card.scss';
 import { useState } from 'react';
-import { Card, Tag, Spin } from 'antd';
+import { Card, Tag } from 'antd';
 import { Modal } from '../Modal/Modal';
 import useFetch from '../../hooks/useFetch';
 const colors = [
@@ -32,7 +32,7 @@ const defineTagColor = (tagUrl) => {
 
 function AppCard({ item }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data, isLoading, isError, setUrl } = useFetch();
+  const { data, isLoading, setUrl } = useFetch();
   const showModal = (id) => {
     setIsModalOpen(true);
     setUrl(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
