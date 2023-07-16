@@ -1,6 +1,11 @@
 import './SearchBar.scss';
+
 import { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+
 import { SearchOutlined, CloseOutlined } from '@ant-design/icons';
+
+import { fetchPokemons } from '../../store/pokemonsSlice';
 
 function SearchBar() {
   const [searchValue, setSearchValue] = useState('');
@@ -21,13 +26,20 @@ function SearchBar() {
     setIsDisplayCancelBtn(false);
   };
 
-  const onClickSearchBtn = (e) => {
+  const onClickSearchBtn = () => {
     if (searchValue === '') {
       ref.current.focus();
     }
   };
+
+  const dispatch = useDispatch();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    dispatch(fetchPokemons({ name: searchValue }));
+  };
   return (
-    <form className='search-bar'>
+    <form className='search-bar' onSubmit={handleSearch}>
       <input
         ref={ref}
         type='text'

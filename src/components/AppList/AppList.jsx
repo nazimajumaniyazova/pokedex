@@ -13,7 +13,7 @@ function AppList() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPokemons());
+    dispatch(fetchPokemons({}));
   }, [dispatch]);
 
   return (
