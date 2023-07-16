@@ -13,7 +13,7 @@ export const fetchPokemons = createAsyncThunk(
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error('Server Error');
+        throw new Error(`HTTP Response Code: ${response.status}`);
       }
       const data = await response.json();
 
@@ -47,6 +47,27 @@ const initialState = {
 const pokemonsSlice = createSlice({
   name: 'pokemons',
   initialState,
+  reducers: {
+    filterPokemonsByType(state, action) {
+      const types = action.payload;
+      if (types.length === 0) {
+        return;
+      }
+      state.pokemons = state.pokemons.filter((pokemon) => {
+        let count = 0;
+        for (let i = 0; i < pokemon.types.length; i++) {
+          if (types.includes(pokemon.types[i].type.name)) {
+            count += 1;
+          }
+        }
+        if (count >= types.length) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPokemons.fulfilled, (state, action) => {
@@ -68,4 +89,7 @@ const pokemonsSlice = createSlice({
       });
   },
 });
+
+export const { filterPokemonsByType } = pokemonsSlice.actions;
+
 export const pokemons = pokemonsSlice.reducer;

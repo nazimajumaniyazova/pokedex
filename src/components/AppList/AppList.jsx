@@ -10,6 +10,7 @@ import { fetchPokemons } from '../../store/pokemonsSlice';
 function AppList() {
   const { pokemons, isLoading, error } = useSelector((state) => state.pokemons);
 
+  console.log(pokemons);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +24,10 @@ function AppList() {
           {isLoading ? (
             <Spin size='large' className='spin' />
           ) : error ? (
-            <p>An error occurred: {error}. Please update the page</p>
+            <p>
+              An error occurred: {error}. <br />
+              Please update the page
+            </p>
           ) : (
             <List
               grid={{

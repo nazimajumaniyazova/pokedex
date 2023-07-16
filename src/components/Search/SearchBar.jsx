@@ -37,6 +37,8 @@ function SearchBar() {
   const handleSearch = (e) => {
     e.preventDefault();
     dispatch(fetchPokemons({ name: searchValue }));
+    // setSearchValue('');
+    // setIsDisplayCancelBtn(false);
   };
   return (
     <form className='search-bar' onSubmit={handleSearch}>
