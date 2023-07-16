@@ -6,17 +6,14 @@ import { List, Spin } from 'antd';
 
 import { Card } from '../Card/Card';
 import { fetchPokemons } from '../../store/pokemonsSlice';
-import { selectPokemonsByFilter } from '../../store/selectors';
+import { selectPokemons, selectPokemonsByFilter } from '../../store/selectors';
 
 function AppList() {
-  const isLoading = false;
-  const error = null;
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPokemons({}));
   }, [dispatch]);
-
+  const { isLoading, error } = useSelector((state) => state.pokemons);
   const pokemons = useSelector(selectPokemonsByFilter);
 
   return (
@@ -26,10 +23,7 @@ function AppList() {
           {isLoading ? (
             <Spin size='large' className='spin' />
           ) : error ? (
-            <p>
-              An error occurred: {error}. <br />
-              Please update the page
-            </p>
+            <p>{error}</p>
           ) : (
             <List
               grid={{

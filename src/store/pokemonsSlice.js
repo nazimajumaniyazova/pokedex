@@ -5,7 +5,7 @@ export const fetchPokemons = createAsyncThunk(
   'fetchPokemons',
   async function ({ limit = 20, name = '' }, thunkAPI) {
     let url = '';
-    if (name !== '' && name !== undefined) {
+    if (name !== '') {
       url = BASE_URL + `/${name}/`;
     } else {
       url = BASE_URL + `?offset=20&limit=${limit}`;
@@ -13,7 +13,12 @@ export const fetchPokemons = createAsyncThunk(
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error(`HTTP Response Code: ${response.status}`);
+        if (name !== '' && response.status === 404) {
+          throw new Error(`Not Found. There is no such name.`);
+        }
+        if (response.status === 500) {
+          throw new Error(`Server error. Please try again`);
+        }
       }
       const data = await response.json();
 
