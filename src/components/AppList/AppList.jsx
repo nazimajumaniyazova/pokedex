@@ -1,38 +1,28 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import './AppList.scss';
-import useFetch from '../../hooks/useFetch';
-import { List } from 'antd';
+
+import { List, Spin } from 'antd';
 import { Card } from '../Card/Card';
-
+import { fetchPokemons } from '../../store/pokemonsSlice';
 function AppList() {
-  const [itemsArr, setItemsArr] = useState([]);
-  const { data, isLoading } = useFetch('https://pokeapi.co/api/v2/pokemon');
+  const { pokemons, isLoading, error } = useSelector((state) => state.pokemons);
 
-  const mounted = useRef(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const func = async () => {
-      if (data) {
-        for (let item of data.results) {
-          const r = await fetch(item.url);
-          const m = await r.json();
-          setItemsArr((current) => [...current, m]);
-        }
-      }
-    };
-
-    if (mounted.current) {
-      func();
-    }
-    mounted.current = true;
-  }, [data]);
+    dispatch(fetchPokemons());
+  }, [dispatch]);
 
   return (
     <>
       <section className='card-list'>
         <div className='card-list__wrapper'>
-          {isLoading && <p>Loading...</p>}
-          {isLoading || (
+          {isLoading ? (
+            <Spin size='large' className='spin' />
+          ) : error ? (
+            <p>An error occurred: {error}. Please update the page</p>
+          ) : (
             <List
               grid={{
                 gutter: 16,
@@ -43,7 +33,7 @@ function AppList() {
                 xl: 4,
                 xxl: 3,
               }}
-              dataSource={itemsArr}
+              dataSource={pokemons}
               renderItem={(item) => (
                 <List.Item>
                   <Card item={item} />
