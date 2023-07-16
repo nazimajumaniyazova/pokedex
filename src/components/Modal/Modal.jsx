@@ -1,13 +1,11 @@
-import { Modal } from 'antd';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-function AppModal({
-  isModalOpen,
-  setIsModalOpen,
-  item,
-  img,
-  abilities,
-  types,
-}) {
+import { Modal, Spin } from 'antd';
+
+import { fetchPokemonData } from '../../store/pokemonDataSlice';
+
+function AppModal({ setIsModalOpen, isModalOpen, itemID, img }) {
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -15,60 +13,73 @@ function AppModal({
     setIsModalOpen(false);
   };
 
+  const { pokemonData, isLoading, error } = useSelector(
+    (state) => state.pokemonData
+  );
+  console.log(pokemonData);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPokemonData(itemID));
+  }, [itemID, dispatch]);
+
+  const getModalTitle = () => {
+    if (isLoading === false && error === null) {
+      return pokemonData.name;
+    }
+    return '';
+  };
   return (
     <>
-      {item && (
-        <Modal
-          title={<h3 className='card__title'>{item.name}</h3>}
-          open={isModalOpen}
-          onOk={handleOk}
-          onCancel={handleCancel}
-          footer={null}
-        >
-          <div className='card__img'>
-            <img src={img} alt={item.name} />
-          </div>
-          <div className='card-property'>
-            <span className='card-property__name'>Abilities:</span>
-            {abilities.map((ability) => (
-              <span
-                className='card-property__item'
-                key={`${item.id}${ability.ability.name}`}
-              >
-                {ability.ability.name}
+      <Modal
+        title={<h3 className='card__title'>{getModalTitle()}</h3>}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        {isLoading ? (
+          <Spin size='large' className='spin' />
+        ) : error ? (
+          <p>An error occurred: {error}. Please update the page</p>
+        ) : (
+          <>
+            <div className='card__img'>
+              <img src={img} alt={pokemonData.name} />
+            </div>
+            <div className='card-property'>
+              <span className='card-property__name'>Habitat:</span>
+              <span className='card-property__item'>
+                {pokemonData.habitat.name}
               </span>
-            ))}
-          </div>
-          <div className='card-property'>
-            <span className='card-property__name'>Types:</span>
-            {types.map((type) => (
-              <span
-                className='card-property__item'
-                key={`${item.id}${type.type.name}`}
-              >
-                {type.type.name}
+            </div>
+            <div className='card-property'>
+              <span className='card-property__name'>Growth rate:</span>
+              <span className='card-property__item'>
+                {pokemonData.growth_rate.name}
               </span>
-            ))}
-          </div>
-
-          <div className='card-property'>
-            <span className='card-property__name'>Habitat:</span>
-            <span className='card-property__item'>{item.habitat.name}</span>
-          </div>
-          <div className='card-property'>
-            <span className='card-property__name'>Color:</span>
-            <span className='card-property__item'>{item.color.name}</span>
-          </div>
-          <div className='card-property'>
-            <span className='card-property__name'>Generation:</span>
-            <span className='card-property__item'>{item.generation.name}</span>
-          </div>
-          <div className='card-property'>
-            <span className='card-property__name'>Shape:</span>
-            <span className='card-property__item'>{item.shape.name}</span>
-          </div>
-        </Modal>
-      )}
+            </div>
+            <div className='card-property'>
+              <span className='card-property__name'>Color:</span>
+              <span className='card-property__item'>
+                {pokemonData.color.name}
+              </span>
+            </div>
+            <div className='card-property'>
+              <span className='card-property__name'>Generation:</span>
+              <span className='card-property__item'>
+                {pokemonData.generation.name}
+              </span>
+            </div>
+            <div className='card-property'>
+              <span className='card-property__name'>Shape:</span>
+              <span className='card-property__item'>
+                {pokemonData.shape.name}
+              </span>
+            </div>
+          </>
+        )}
+      </Modal>
     </>
   );
 }

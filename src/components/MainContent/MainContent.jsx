@@ -1,6 +1,7 @@
-import React from 'react';
-import AppList from '../AppList/AppList';
 import './MainContent.scss';
+
+import AppList from '../AppList/AppList';
+
 function MainContent() {
   return (
     <main className='main'>

@@ -1,8 +1,10 @@
 import './Card.scss';
+
 import { useState } from 'react';
 import { Card, Tag } from 'antd';
+
 import { Modal } from '../Modal/Modal';
-import useFetch from '../../hooks/useFetch';
+
 const colors = [
   'yellow',
   'magenta',
@@ -32,18 +34,18 @@ const defineTagColor = (tagUrl) => {
 
 function AppCard({ item }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { data, isLoading, setUrl } = useFetch();
-  const showModal = (id) => {
+
+  const showModal = () => {
     setIsModalOpen(true);
-    setUrl(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
   };
+
   return (
     <>
       <Card
         title={<h3 className='card__title'>{item.name}</h3>}
         hoverable
         className='card'
-        onClick={() => showModal(item.id)}
+        onClick={showModal}
         bodyStyle={{
           display: 'flex',
           flexDirection: 'column',
@@ -80,14 +82,12 @@ function AppCard({ item }) {
           ))}
         </div>
       </Card>
-      {isLoading || (
+      {isModalOpen && (
         <Modal
           setIsModalOpen={setIsModalOpen}
-          item={data}
           isModalOpen={isModalOpen}
+          itemID={item.id}
           img={item.sprites.front_default}
-          abilities={item.abilities}
-          types={item.types}
         />
       )}
     </>

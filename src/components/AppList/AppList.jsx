@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import './AppList.scss';
 
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { List, Spin } from 'antd';
+
 import { Card } from '../Card/Card';
 import { fetchPokemons } from '../../store/pokemonsSlice';
+
 function AppList() {
   const { pokemons, isLoading, error } = useSelector((state) => state.pokemons);
 

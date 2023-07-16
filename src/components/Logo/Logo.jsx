@@ -1,5 +1,6 @@
 import './Logo.scss';
 import LogoImg from '../../assets/img/logo.png';
+
 function Logo() {
   return (
     <a className='logo' href='./'>
