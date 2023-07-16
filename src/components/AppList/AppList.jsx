@@ -6,15 +6,18 @@ import { List, Spin } from 'antd';
 
 import { Card } from '../Card/Card';
 import { fetchPokemons } from '../../store/pokemonsSlice';
+import { selectPokemonsByFilter } from '../../store/selectors';
 
 function AppList() {
-  const { pokemons, isLoading, error } = useSelector((state) => state.pokemons);
+  const isLoading = false;
+  const error = null;
 
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(fetchPokemons({}));
   }, [dispatch]);
+
+  const pokemons = useSelector(selectPokemonsByFilter);
 
   return (
     <>

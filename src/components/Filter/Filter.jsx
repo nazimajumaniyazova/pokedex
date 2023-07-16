@@ -2,10 +2,12 @@ import './Filter.scss';
 
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { createSelector } from '@reduxjs/toolkit';
 import { fetchPokemonTypes } from '../../store/pokemonTypesSlice';
 import Checkbox from '../Checkbox/Checkbox';
+import { setFilterArray } from '../../store/filterArraySlice';
 import { filterPokemonsByType } from '../../store/pokemonsSlice';
+import { selectPokemonsByFilter } from '../../store/selectors';
 
 function Filter() {
   const { pokemonTypes, isLoading, error } = useSelector(
@@ -18,16 +20,16 @@ function Filter() {
     dispatch(fetchPokemonTypes());
   }, [dispatch]);
 
-  const [selectedTypes, setSelectedTypes] = useState([]);
+  const { filterArray } = useSelector((state) => state.filterArray);
 
   const filterHandler = (event) => {
     if (event.target.checked) {
-      setSelectedTypes([...selectedTypes, event.target.name]);
+      const tmp = [...filterArray, event.target.name];
+      dispatch(setFilterArray(tmp));
     } else {
-      const tmp = selectedTypes.filter((t) => t !== event.target.name);
-      setSelectedTypes(tmp);
+      const tmp = filterArray.filter((t) => t !== event.target.name);
+      dispatch(setFilterArray(tmp));
     }
-    dispatch(filterPokemonsByType(selectedTypes));
   };
   return (
     <section className='filter'>

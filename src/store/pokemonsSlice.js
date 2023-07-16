@@ -40,6 +40,7 @@ export const fetchPokemons = createAsyncThunk(
 
 const initialState = {
   pokemons: [],
+  filteredPokemons: [],
   isLoading: false,
   error: null,
 };
@@ -47,28 +48,6 @@ const initialState = {
 const pokemonsSlice = createSlice({
   name: 'pokemons',
   initialState,
-  reducers: {
-    filterPokemonsByType(state, action) {
-      const types = action.payload;
-      console.log(types);
-      if (types.length === 0) {
-        return;
-      }
-      state.pokemons = state.pokemons.filter((pokemon) => {
-        let count = 0;
-        for (let i = 0; i < pokemon.types.length; i++) {
-          if (types.includes(pokemon.types[i].type.name)) {
-            count += 1;
-          }
-        }
-        if (count >= types.length) {
-          return true;
-        } else {
-          return false;
-        }
-      });
-    },
-  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPokemons.fulfilled, (state, action) => {
@@ -76,6 +55,7 @@ const pokemonsSlice = createSlice({
         state.error = null;
         if (Array.isArray(action.payload)) {
           state.pokemons = action.payload;
+          state.filteredPokemons = action.payload;
         } else {
           state.pokemons = [action.payload];
         }
