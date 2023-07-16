@@ -50,6 +50,7 @@ const pokemonsSlice = createSlice({
   reducers: {
     filterPokemonsByType(state, action) {
       const types = action.payload;
+      console.log(types);
       if (types.length === 0) {
         return;
       }

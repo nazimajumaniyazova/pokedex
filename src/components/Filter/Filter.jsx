@@ -21,10 +21,12 @@ function Filter() {
   const [selectedTypes, setSelectedTypes] = useState([]);
 
   const filterHandler = (event) => {
-    const nextSelectedTypes = event.target.checked
-      ? [...selectedTypes, event.target.name]
-      : selectedTypes.filter((t) => t !== event.target.name);
-    setSelectedTypes(nextSelectedTypes);
+    if (event.target.checked) {
+      setSelectedTypes([...selectedTypes, event.target.name]);
+    } else {
+      const tmp = selectedTypes.filter((t) => t !== event.target.name);
+      setSelectedTypes(tmp);
+    }
     dispatch(filterPokemonsByType(selectedTypes));
   };
   return (

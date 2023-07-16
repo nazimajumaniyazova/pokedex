@@ -10,7 +10,6 @@ import { fetchPokemons } from '../../store/pokemonsSlice';
 function AppList() {
   const { pokemons, isLoading, error } = useSelector((state) => state.pokemons);
 
-  console.log(pokemons);
   const dispatch = useDispatch();
 
   useEffect(() => {
