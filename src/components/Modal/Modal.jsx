@@ -16,12 +16,12 @@ function AppModal({ setIsModalOpen, isModalOpen, itemID, img }) {
   const { pokemonData, isLoading, error } = useSelector(
     (state) => state.pokemonData
   );
-  console.log(pokemonData);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchPokemonData(itemID));
-  }, [itemID, dispatch]);
+  }, [itemID]);
 
   const getModalTitle = () => {
     if (isLoading === false && error === null) {
@@ -50,31 +50,31 @@ function AppModal({ setIsModalOpen, isModalOpen, itemID, img }) {
             <div className='card-property'>
               <span className='card-property__name'>Habitat:</span>
               <span className='card-property__item'>
-                {pokemonData.habitat.name}
+                {pokemonData.habitat?.name}
               </span>
             </div>
             <div className='card-property'>
               <span className='card-property__name'>Growth rate:</span>
               <span className='card-property__item'>
-                {pokemonData.growth_rate.name}
+                {pokemonData.growth_rate?.name}
               </span>
             </div>
             <div className='card-property'>
               <span className='card-property__name'>Color:</span>
               <span className='card-property__item'>
-                {pokemonData.color.name}
+                {pokemonData.color?.name}
               </span>
             </div>
             <div className='card-property'>
               <span className='card-property__name'>Generation:</span>
               <span className='card-property__item'>
-                {pokemonData.generation.name}
+                {pokemonData.generation?.name}
               </span>
             </div>
             <div className='card-property'>
               <span className='card-property__name'>Shape:</span>
               <span className='card-property__item'>
-                {pokemonData.shape.name}
+                {pokemonData.shape?.name}
               </span>
             </div>
           </>
