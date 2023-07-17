@@ -25,3 +25,13 @@ export const selectPokemonsByFilter = createSelector(
     });
   }
 );
+
+export const selectPokemonsBySearchedName = createSelector(
+  [selectPokemons, (_, name) => name],
+  (pokemons, name) => {
+    if (name === '') {
+      return pokemons;
+    }
+    return pokemons.filter((pokemon) => pokemon.name === name);
+  }
+);

@@ -1,0 +1,9 @@
+@use '../../styles/placeholders.scss';
+@use '../../styles/mixins' as *;
+.pagination {
+  padding: 50px 0;
+}
+.pagination__wrapper {
+  @extend %wrapper;
+  text-align: center;
+}

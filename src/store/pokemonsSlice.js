@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 const BASE_URL = 'https://pokeapi.co/api/v2/pokemon';
 export const fetchPokemons = createAsyncThunk(
   'fetchPokemons',
-  async function ({ limit = 20, name = '' }, thunkAPI) {
+  async function ({ limit = 10, name = '' }, thunkAPI) {
     let url = '';
     if (name !== '') {
       url = BASE_URL + `/${name}/`;
