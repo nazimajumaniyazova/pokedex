@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/redux-toolkit/pokedex/static/css/main.1cea4ea6.css",
+    "main.js": "/redux-toolkit/pokedex/static/js/main.c1d3fb01.js",
+    "static/js/787.7e0b23c5.chunk.js": "/redux-toolkit/pokedex/static/js/787.7e0b23c5.chunk.js",
+    "index.html": "/redux-toolkit/pokedex/index.html",
+    "main.1cea4ea6.css.map": "/redux-toolkit/pokedex/static/css/main.1cea4ea6.css.map",
+    "main.c1d3fb01.js.map": "/redux-toolkit/pokedex/static/js/main.c1d3fb01.js.map",
+    "787.7e0b23c5.chunk.js.map": "/redux-toolkit/pokedex/static/js/787.7e0b23c5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1cea4ea6.css",
+    "static/js/main.c1d3fb01.js"
+  ]
+}
