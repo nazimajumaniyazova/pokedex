@@ -1,4 +1,4 @@
-import './AppList.scss';
+import './CardList.scss';
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,7 +8,7 @@ import { Card } from '../Card/Card';
 import { fetchPokemons } from '../../store/pokemonsSlice';
 import { selectPokemons, selectPokemonsByFilter } from '../../store/selectors';
 
-function AppList() {
+function CardList() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchPokemons({}));
@@ -49,4 +49,4 @@ function AppList() {
   );
 }
 
-export default AppList;
+export default CardList;

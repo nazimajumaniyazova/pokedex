@@ -1,7 +1,7 @@
 import './Header.scss';
 
 import Logo from '../Logo/Logo';
-import SearchBar from '../Search/SearchBar';
+import SearchBar from '../SearchBar/SearchBar';
 
 function AppHeader() {
   return (

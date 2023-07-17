@@ -1,14 +1,14 @@
 import './MainContent.scss';
 
-import AppList from '../AppList/AppList';
 import Filter from '../Filter/Filter';
 import { Pagination } from '../Pagination/Pagination';
+import CardList from '../CardList/CardList';
 
 function MainContent() {
   return (
     <main className='main'>
       <Filter />
-      <AppList />
+      <CardList />
       <Pagination />
     </main>
   );
